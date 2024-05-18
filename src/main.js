@@ -39,9 +39,9 @@ Terminology:
 
   */
 
-const circleNum = 5;
+const circleNum = 8;
 
-const circles = [];
+let circles = [];
 let marchingSquareGrid;
 let dotGridWall;
 
@@ -51,24 +51,25 @@ function setup() {
   // frameRate(10);
 
   Array.from({ length: circleNum }).forEach(() => {
-    circles.push(new Circle());
+    circles.push(Circle.spawnRandom(width, height));
   });
 
   marchingSquareGrid = new MarchingSquareGrid(width, height, 20);
 
   dotGridWall = new DotGridWall();
+  dotGridWall.init(marchingSquareGrid);
 }
 
 function draw() {
-  background(255);
+  background(0);
 
   circles.forEach((circle) => {
-    circle.move();
-    circle.paint();
+    circle.move(width, height);
+    // circle.paint();
   });
 
   marchingSquareGrid.computeDensityField(circles);
-  marchingSquareGrid.commit();
+  // marchingSquareGrid.commit();
 
   dotGridWall.commit(marchingSquareGrid);
 }
@@ -76,17 +77,24 @@ function draw() {
 let latestCircle;
 
 function mousePressed() {
-  latestCircle = new Circle(mouseX, mouseY, 10, 0, 0, 0.2);
+  if (mouseButton !== LEFT) {
+    return;
+  }
+
+  latestCircle = Circle.spawnStationaryGrowth(mouseX, mouseY);
   circles.push(latestCircle);
 }
 
 function mouseReleased() {
-  latestCircle.deltaX = 1;
-  latestCircle.deltaY = 1;
-  latestCircle.deltaRadius = 0;
+  latestCircle.stopStationaryGrowth();
 }
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   marchingSquareGrid.updateGridSize(width, height);
+
+  const newCircles = circles.filter((circle) => {
+    return circle.isWithinBoundary(width, height);
+  });
+  circles = newCircles;
 }
