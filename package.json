@@ -1,0 +1,19 @@
+{
+  "name": "p5-lavarand",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint . --report-unused-disable-directives"
+  },
+  "author": "Shu Takahashi",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/p5": "^1.7.6",
+    "@typescript-eslint/eslint-plugin": "^7.9.0",
+    "@typescript-eslint/parser": "^7.9.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-p5js": "^1.0.0",
+    "typescript": "^5.4.5"
+  }
+}
