@@ -56,13 +56,14 @@ function setup() {
 
   marchingSquareGrid = new MarchingSquareGrid(width, height, 20);
 
-  dotGridWall = new DotGridWall();
-  dotGridWall.init(marchingSquareGrid);
+  // dotGridWall = new DotGridWall();
+  // dotGridWall.init(marchingSquareGrid);
+
+  cryptoGridWall = new CryptoGridWall();
+  cryptoGridWall.init(marchingSquareGrid);
 }
 
 function draw() {
-  background(0);
-
   circles.forEach((circle) => {
     circle.move(width, height);
     // circle.paint();
@@ -71,7 +72,11 @@ function draw() {
   marchingSquareGrid.computeDensityField(circles);
   // marchingSquareGrid.commit();
 
-  dotGridWall.commit(marchingSquareGrid);
+  // dotGridWall.commit(marchingSquareGrid);
+
+  cryptoGridWall.commit();
+
+  // noLoop();
 }
 
 let latestCircle;

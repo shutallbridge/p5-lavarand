@@ -5,6 +5,8 @@ class DotGridWall {
   }
 
   commit(marchingSquareGrid) {
+    background(0);
+
     marchingSquareGrid.forEachGridPoint((gridPoint) => {
       safeCommit(() => {
         strokeWeight(4);
