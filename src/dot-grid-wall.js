@@ -1,39 +1,43 @@
-// eslint-disable-next-line no-unused-vars
-class DotGridWall {
-  constructor(marchingSquareGrid, hoverDiameter) {
-    this.marchingSquareGrid = marchingSquareGrid;
-    this.hoverDiameter = hoverDiameter;
+class DotGridWall extends MarchingSquareGridFactory() {
+  constructor(gridWidth, gridHeight, cellSize, hoverRadius) {
+    super(gridWidth, gridHeight, cellSize, hoverRadius);
   }
 
-  init() {
-    this.marchingSquareGrid.updateCellSize(20);
-  }
-
-  commit() {
+  paint() {
     background(0);
 
-    this.marchingSquareGrid.forEachGridPoint((gridPoint) => {
-      safeCommit(() => {
+    this.forEachGridPoint((gridPoint) => {
+      const lavaGray = DensityField.mapToGrayScale(
+        gridPoint.getCircleDensityField(),
+        1,
+        1.5
+      );
+      const mouseGray = DensityField.mapToGrayScale(
+        gridPoint.getMouseDensityField(),
+        0.5,
+        2
+      );
+      const grayValue = lavaGray > 0 ? lavaGray : mouseGray > 0 ? mouseGray : 0;
+
+      const { posX, posY } = gridPoint.getGridInfo();
+
+      safePaint(() => {
+        stroke(grayValue);
         strokeWeight(4);
-        const strokeGray = this.mapDensityFieldToGrayScale(
-          gridPoint.densityField,
-          1.5
-        );
-        stroke(strokeGray);
-        point(gridPoint.posX, gridPoint.posY);
+        point(posX, posY);
       });
     });
 
-    this.marchingSquareGrid.forEachGridCell((vertA, vertB, vertC, vertD) => {
+    this.forEachGridCell((gridCell) => {
+      const { vertA, vertB, vertC, vertD } = gridCell.getGridInfo();
+
       const config = [
-        this.mapDensityFieldToBinary(vertA.densityField),
-        this.mapDensityFieldToBinary(vertB.densityField),
-        this.mapDensityFieldToBinary(vertC.densityField),
-        this.mapDensityFieldToBinary(vertD.densityField),
+        DensityField.mapToBinary(vertA.getCircleDensityField()),
+        DensityField.mapToBinary(vertB.getCircleDensityField()),
+        DensityField.mapToBinary(vertC.getCircleDensityField()),
+        DensityField.mapToBinary(vertD.getCircleDensityField()),
       ].toString();
-
-      const { cellSize } = this.marchingSquareGrid.getInfo();
-
+      const { cellSize } = this;
       // prettier-ignore
       const center = { posX: vertA.posX + cellSize / 2, posY: vertA.posY + cellSize / 2 };
       // prettier-ignore
@@ -45,9 +49,8 @@ class DotGridWall {
       // prettier-ignore
       const midD = { posX: vertA.posX, posY: vertA.posY + cellSize / 2 }
 
-      safeCommit(() => {
+      safePaint(() => {
         stroke(255);
-
         switch (config) {
           case "0,0,0,0":
           case "1,1,1,1":
@@ -87,19 +90,5 @@ class DotGridWall {
         }
       });
     });
-  }
-
-  mapDensityFieldToGrayScale(value, threshold) {
-    if (value < 1) {
-      return 0;
-    } else if (value < threshold) {
-      return map(value, 1, threshold, 50, 255);
-    } else {
-      return 255;
-    }
-  }
-
-  mapDensityFieldToBinary(value) {
-    return value > 1 ? 1 : 0;
   }
 }

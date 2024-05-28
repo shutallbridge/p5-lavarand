@@ -1,6 +1,5 @@
-// eslint-disable-next-line no-unused-vars
-function safeCommit(commit) {
+function safePaint(paint) {
   push();
-  commit();
+  paint();
   pop();
 }

@@ -20,8 +20,8 @@ class Circle {
     );
   }
 
-  static spawnStationaryGrowth(posX, posY) {
-    return new Circle(posX, posY, 30, 0, 0, 0.4);
+  static spawnStationaryGrowth(posX, posY, startRadius) {
+    return new Circle(posX, posY, startRadius, 0, 0, 0.4);
   }
 
   stopStationaryGrowth() {

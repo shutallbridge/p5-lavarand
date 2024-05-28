@@ -1,44 +1,70 @@
+class CryptoGridPoint extends BasePoint {
+  constructor(posX, posY, columnIndex, rowIndex) {
+    super(posX, posY, columnIndex, rowIndex);
+
+    this.letter = "";
+  }
+
+  getLetter() {
+    return this.letter;
+  }
+
+  setLetter(letter) {
+    this.letter = letter;
+  }
+}
+
 const characters =
   "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-// eslint-disable-next-line no-unused-vars
-class CryptoGridWall {
-  constructor(marchingSquareGrid) {
-    this.marchingSquareGrid = marchingSquareGrid;
+class CryptoGridWall extends MarchingSquareGridFactory({
+  PointClass: CryptoGridPoint,
+}) {
+  constructor(gridWidth, gridHeight, cellSize, hoverRadius) {
+    super(gridWidth, gridHeight, cellSize, hoverRadius);
   }
 
-  init() {
-    this.marchingSquareGrid.updateCellSize(20);
-  }
+  crypto(frameCount) {
+    if (frameCount % 4 !== 0) {
+      return;
+    }
 
-  commit() {
-    background(0);
-
-    this.marchingSquareGrid.forEachGridPoint((gridPoint) => {
-      safeCommit(() => {
-        const fillGray = this.mapDensityFieldToGrayScale(
-          gridPoint.densityField,
-          1.5
-        );
-        fill(fillGray);
-        stroke(0);
-        strokeWeight(1);
-        text(
-          characters.charAt(random(0, characters.length - 1)),
-          gridPoint.posX,
-          gridPoint.posY
-        );
-      });
+    this.forEachGridPoint((gridPoint) => {
+      const randomLetter = characters.charAt(random(0, characters.length - 1));
+      gridPoint.setLetter(randomLetter);
     });
   }
 
-  mapDensityFieldToGrayScale(value, threshold) {
-    if (value < 1) {
-      return 70;
-    } else if (value < threshold) {
-      return map(value, 1, threshold, 100, 255);
-    } else {
-      return 255;
-    }
+  paint() {
+    background(0);
+
+    this.forEachGridPoint((gridPoint) => {
+      const densityField =
+        gridPoint.getCircleDensityField() + gridPoint.getMouseDensityField();
+
+      const lowerTrim = 140;
+
+      const foregroundAlpha = DensityField.mapToGrayScale(
+        densityField,
+        1,
+        2,
+        lowerTrim,
+        255
+      );
+
+      const backgroundAlpha = 50;
+
+      const alphaValue =
+        foregroundAlpha > lowerTrim ? foregroundAlpha : backgroundAlpha;
+
+      const { posX, posY } = gridPoint.getGridInfo();
+
+      safePaint(() => {
+        fill(22, 100, 8, alphaValue);
+        stroke(22, 100, 8, alphaValue);
+        strokeWeight(1.5);
+        text(gridPoint.getLetter(), posX, posY);
+      });
+    });
   }
 }
