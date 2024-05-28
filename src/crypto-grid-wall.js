@@ -3,14 +3,18 @@ const characters =
 
 // eslint-disable-next-line no-unused-vars
 class CryptoGridWall {
-  init(marchingSquareGrid) {
-    marchingSquareGrid.updateCellSize(20);
+  constructor(marchingSquareGrid) {
+    this.marchingSquareGrid = marchingSquareGrid;
+  }
+
+  init() {
+    this.marchingSquareGrid.updateCellSize(20);
   }
 
   commit() {
     background(0);
 
-    marchingSquareGrid.forEachGridPoint((gridPoint) => {
+    this.marchingSquareGrid.forEachGridPoint((gridPoint) => {
       safeCommit(() => {
         const fillGray = this.mapDensityFieldToGrayScale(
           gridPoint.densityField,

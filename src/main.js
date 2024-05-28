@@ -48,19 +48,17 @@ let dotGridWall;
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  // frameRate(10);
-
   Array.from({ length: circleNum }).forEach(() => {
     circles.push(Circle.spawnRandom(width, height));
   });
 
   marchingSquareGrid = new MarchingSquareGrid(width, height, 20);
 
-  // dotGridWall = new DotGridWall();
-  // dotGridWall.init(marchingSquareGrid);
+  dotGridWall = new DotGridWall(marchingSquareGrid);
+  dotGridWall.init();
 
-  cryptoGridWall = new CryptoGridWall();
-  cryptoGridWall.init(marchingSquareGrid);
+  // cryptoGridWall = new CryptoGridWall(marchingSquareGrid);
+  // cryptoGridWall.init();
 }
 
 function draw() {
@@ -72,9 +70,9 @@ function draw() {
   marchingSquareGrid.computeDensityField(circles);
   // marchingSquareGrid.commit();
 
-  // dotGridWall.commit(marchingSquareGrid);
+  dotGridWall.commit();
 
-  cryptoGridWall.commit();
+  // cryptoGridWall.commit();
 
   // noLoop();
 }

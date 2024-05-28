@@ -1,13 +1,18 @@
 // eslint-disable-next-line no-unused-vars
 class DotGridWall {
-  init(marchingSquareGrid) {
-    marchingSquareGrid.updateCellSize(20);
+  constructor(marchingSquareGrid, hoverDiameter) {
+    this.marchingSquareGrid = marchingSquareGrid;
+    this.hoverDiameter = hoverDiameter;
   }
 
-  commit(marchingSquareGrid) {
+  init() {
+    this.marchingSquareGrid.updateCellSize(20);
+  }
+
+  commit() {
     background(0);
 
-    marchingSquareGrid.forEachGridPoint((gridPoint) => {
+    this.marchingSquareGrid.forEachGridPoint((gridPoint) => {
       safeCommit(() => {
         strokeWeight(4);
         const strokeGray = this.mapDensityFieldToGrayScale(
@@ -19,7 +24,7 @@ class DotGridWall {
       });
     });
 
-    marchingSquareGrid.forEachGridCell((vertA, vertB, vertC, vertD) => {
+    this.marchingSquareGrid.forEachGridCell((vertA, vertB, vertC, vertD) => {
       const config = [
         this.mapDensityFieldToBinary(vertA.densityField),
         this.mapDensityFieldToBinary(vertB.densityField),
@@ -27,7 +32,7 @@ class DotGridWall {
         this.mapDensityFieldToBinary(vertD.densityField),
       ].toString();
 
-      const { cellSize } = marchingSquareGrid.getInfo();
+      const { cellSize } = this.marchingSquareGrid.getInfo();
 
       // prettier-ignore
       const center = { posX: vertA.posX + cellSize / 2, posY: vertA.posY + cellSize / 2 };
