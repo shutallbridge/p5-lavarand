@@ -1,4 +1,11 @@
-let canvas = new Canvas({ style: "cryptoGrid", circleNum: 10 });
+const canvas = new Canvas({
+  style: "dotGrid",
+  circleNum: 10,
+  cellSize: 20,
+  hoverRadius: 40,
+  minRadius: 40,
+  maxRadius: 110,
+});
 
 function setup() {
   canvas.updateCanvasVariables({ width: windowWidth, height: windowHeight });

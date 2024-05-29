@@ -9,19 +9,19 @@ class Circle {
     this.velRadius = velRadius;
   }
 
-  static spawnRandom(boundaryWidth, boundaryHeight) {
+  static spawnRandom(boundaryWidth, boundaryHeight, minRadius, maxRadius) {
     return new Circle(
       random(0, boundaryWidth),
       random(0, boundaryHeight),
-      random(40, 110),
+      random(minRadius, maxRadius),
       0,
       -1,
       0
     );
   }
 
-  static spawnStationaryGrowth(posX, posY, startRadius) {
-    return new Circle(posX, posY, startRadius, 0, 0, 0.4);
+  static spawnStationaryGrowth(posX, posY, startRadius, velRadius = 0.4) {
+    return new Circle(posX, posY, startRadius, 0, 0, velRadius);
   }
 
   stopStationaryGrowth() {

@@ -1,7 +1,15 @@
 class Canvas {
   constructor(args) {
-    const { style = "dotGrid", circleNum = 8 } = args ?? {};
+    const {
+      style = "dotGrid",
+      circleNum = 8,
+      cellSize = 20,
+      hoverRadius = 40,
+      minRadius = 40,
+      maxRadius = 110,
+    } = args ?? {};
 
+    // canvas variables
     this.width = 0;
     this.height = 0;
     this.mouseX = 0;
@@ -12,6 +20,10 @@ class Canvas {
     // style is either "dotGrid" or "cryptoGrid"
     this.style = style;
     this.circleNum = circleNum;
+    this.cellSize = cellSize;
+    this.hoverRadius = hoverRadius;
+    this.minRadius = minRadius;
+    this.maxRadius = maxRadius;
     this.circles = [];
     this.latestCircle = null;
     this.dotGridWall = null;
@@ -26,11 +38,28 @@ class Canvas {
     createCanvas(this.width, this.height);
 
     Array.from({ length: this.circleNum }).forEach(() => {
-      this.circles.push(Circle.spawnRandom(width, height));
+      this.circles.push(
+        Circle.spawnRandom(
+          this.width,
+          this.height,
+          this.minRadius,
+          this.maxRadius
+        )
+      );
     });
 
-    this.dotGridWall = new DotGridWall(this.width, this.height, 20, 40);
-    this.cryptoGridWall = new CryptoGridWall(this.width, this.height, 20, 40);
+    this.dotGridWall = new DotGridWall(
+      this.width,
+      this.height,
+      this.cellSize,
+      this.hoverRadius
+    );
+    this.cryptoGridWall = new CryptoGridWall(
+      this.width,
+      this.height,
+      this.cellSize,
+      this.hoverRadius
+    );
 
     // source: https://stackoverflow.com/questions/60853612/p5-js-on-right-mouse-click-shows-the-browser-context-menu-and-not-the-drawing-fu
     for (let element of document.getElementsByClassName("p5Canvas")) {
