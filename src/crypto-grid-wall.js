@@ -52,7 +52,7 @@ class CryptoGridWall extends MarchingSquareGridFactory({
         255
       );
 
-      const backgroundAlpha = 50;
+      const backgroundAlpha = 30;
 
       const alphaValue =
         (foregroundAlpha > lowerTrim ? foregroundAlpha : backgroundAlpha) * 1.5;

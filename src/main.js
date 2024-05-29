@@ -1,6 +1,6 @@
 const canvas = new Canvas({
   style: "dotGrid",
-  circleNum: 10,
+  circleNum: { default: 4, sm: 6, md: 8, lg: 10 },
   cellSize: 20,
   hoverRadius: 40,
   minRadius: 40,

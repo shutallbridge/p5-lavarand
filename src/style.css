@@ -1,8 +1,48 @@
 html, body {
   margin: 0;
   padding: 0;
+  
+  /* source: https://github.com/system-fonts/modern-font-stacks#system-ui */
+  font-family: system-ui, sans-serif;
 }
 
 canvas {
   display: block;
+}
+
+.dialog[open] {
+  position: fixed;
+  bottom: 0;
+  width: auto;
+  margin: 0 0.4rem 0.4rem 0.4rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.4rem;
+}
+
+/* source: https://tailwindcss.com/docs/responsive-design */
+@media (min-width: 768px) {
+  .dialog[open] {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.dialog button {
+  /* reset browser default styles  */
+  border-radius: 0;
+  border: none;
+  background: none;
+  padding: 0;
+
+  /* remove once another focusable element is in the DOM */
+  outline: none;
+
+  border: black 1px solid;
+  padding: 1rem;
+  background-color: #fff;
+}
+
+.dialog button:hover {
+  background-color: #ddd;
 }

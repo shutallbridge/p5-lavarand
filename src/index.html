@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css" />
 
-  <!-- replace with appropriate p5 files -->
-  <script src="../p5/p5.min.js"></script>
-  <script src="../p5/p5.sound.min.js"></script>
+    <!-- replace with appropriate p5 files -->
+    <script src="../p5/p5.min.js"></script>
+    <script src="../p5/p5.sound.min.js"></script>
 
-  <title>Document</title>
-</head>
-<body>
-  <script src="helpers.js"></script>
-  <script src="density-field.js"></script>
-  <script src="circle.js"></script>
-  <script src="marching-square-grid.js"></script>
-  <script src="dot-grid-wall.js"></script>
-  <script src="crypto-grid-wall.js"></script>
-  <script src="canvas.js"></script>
-  <script src="main.js"></script>
-</body>
+    <title>p5-lavarand</title>
+  </head>
+  <body>
+    <dialog data-dialog class="dialog">
+      <p>
+        Left click and hold to create a new blob. Right click to change style.
+      </p>
+      <button data-close-dialog>Continue</button>
+    </dialog>
+    <script src="dialog.js"></script>
+    <script src="helpers.js"></script>
+    <script src="density-field.js"></script>
+    <script src="circle.js"></script>
+    <script src="marching-square-grid.js"></script>
+    <script src="dot-grid-wall.js"></script>
+    <script src="crypto-grid-wall.js"></script>
+    <script src="canvas.js"></script>
+    <script src="main.js"></script>
+  </body>
 </html>

@@ -2,7 +2,7 @@ class Canvas {
   constructor(args) {
     const {
       style = "dotGrid",
-      circleNum = 8,
+      circleNum = { default: 4, sm: 6, md: 8, lg: 10 },
       cellSize = 20,
       hoverRadius = 40,
       minRadius = 40,
@@ -37,16 +37,18 @@ class Canvas {
   setup() {
     createCanvas(this.width, this.height);
 
-    Array.from({ length: this.circleNum }).forEach(() => {
-      this.circles.push(
-        Circle.spawnRandom(
-          this.width,
-          this.height,
-          this.minRadius,
-          this.maxRadius
-        )
-      );
-    });
+    Array.from({ length: breakPointValue(this.circleNum, this.width) }).forEach(
+      () => {
+        this.circles.push(
+          Circle.spawnRandom(
+            this.width,
+            this.height,
+            this.minRadius,
+            this.maxRadius
+          )
+        );
+      }
+    );
 
     this.dotGridWall = new DotGridWall(
       this.width,
@@ -114,8 +116,24 @@ class Canvas {
     this.dotGridWall.updateGridSize(this.width, this.height);
     this.cryptoGridWall.updateGridSize(this.width, this.height);
 
-    this.circles = this.circles.filter((circle) => {
+    const circlesWithinCanvas = this.circles.filter((circle) => {
       return circle.isWithinBoundary(this.width, this.height);
     });
+
+    const numCirclesToAdd = Math.max(
+      0,
+      breakPointValue(this.circleNum, this.width) - this.circles.length
+    );
+
+    const newCircles = Array.from({ length: numCirclesToAdd }).map(() =>
+      Circle.spawnRandom(
+        this.width,
+        this.height,
+        this.minRadius,
+        this.maxRadius
+      )
+    );
+
+    this.circles = [...circlesWithinCanvas, ...newCircles];
   }
 }
