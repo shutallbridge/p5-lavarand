@@ -1,7 +1,11 @@
 # Modified from Node gitignore (https://github.com/github/gitignore/blob/main/Node.gitignore)
 
 # p5
-p5/
+p5
+
+# astro/vercel
+.astro
+.vercel
 
 # Logs
 logs

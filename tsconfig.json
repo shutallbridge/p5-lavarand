@@ -1,6 +1,6 @@
 /* TSConfig Cheat Sheet (https://www.totaltypescript.com/tsconfig-cheat-sheet) */
-
 {
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     /* Base Options: */
     "esModuleInterop": true,
@@ -19,9 +19,18 @@
     "module": "preserve",
     "noEmit": true,
     /* If your code runs in the DOM: */
-    "lib": ["es2022", "dom", "dom.iterable"],
-
+    "lib": [
+      "es2022",
+      "dom",
+      "dom.iterable"
+    ],
   },
-  "include": ["p5-env.d.ts", "**/*.js", "**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "p5-env.d.ts",
+    "**/*.js",
+    "**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

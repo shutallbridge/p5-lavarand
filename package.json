@@ -4,16 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint . --report-unused-disable-directives"
+    "lint": "eslint . --report-unused-disable-directives",
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview"
   },
   "author": "Shu Takahashi",
   "license": "MIT",
   "devDependencies": {
+    "@astrojs/check": "^0.9.1",
     "@types/p5": "^1.7.6",
     "@typescript-eslint/eslint-plugin": "^7.9.0",
     "@typescript-eslint/parser": "^7.9.0",
+    "astro": "^4.12.3",
     "eslint": "^8.57.0",
     "eslint-plugin-p5js": "^1.0.0",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@astrojs/vercel": "^7.7.2"
   }
 }
