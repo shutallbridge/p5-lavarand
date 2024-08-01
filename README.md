@@ -6,6 +6,8 @@ DECO1012 Design Programming
 
 ## Setup
 
+> Note: Most of the p5js code is in `/public` not `/src`
+
 ### Development
 
 `npm run dev`
