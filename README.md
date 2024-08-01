@@ -1,0 +1,19 @@
+# p5-lavarand
+
+> Live Demo Available Here: [https://p5-lavarand.vercel.app/](https://p5-lavarand.vercel.app/)
+
+DECO1012 Design Programming
+
+## Setup
+
+### Development
+
+`npm run dev`
+
+### Build
+
+`npm run build`
+
+### Preview
+
+`npm run preview`
