@@ -1,6 +1,6 @@
 # p5-lavarand
 
-> Live Demo Available Here: [https://p5-lavarand.vercel.app/](https://p5-lavarand.vercel.app/)
+> Live Demo Available Here: [p5-lavarand.s12.space](https://p5-lavarand.s12.space/)
 
 DECO1012 Design Programming
 
